@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    
+    <h1 id="myid"></h1>
+    <h2 id="class"></h2>
+    <h2 id="class"></h2>
+    <p></p>
+    <p></p>
+
+    <div id="a">
+        <div id="b">
+            <h3 id="c"></h3>
+        </div>
+    </div>
+
+    <h3 id="myh3"></h3>
+    <h3 id="myh3"></h3>
+    <h3 id="myh3"></h3>
+
+    <!-- Javascript 블록은 body태그 종료 직전에 위치 -->
+    <script>
+        /** Tag  이름으로 접근하는 경우 */
+        const el1 = document.getElementsByTagName("p");
+
+        // 특정 태그가 여러 개 존재하는것이 대부분이므로 항상 배열 형대(컬렉션)로 변환한다.
+        // -> 반복문 처리가 필요함.
+        for(let i=0; i<el1.length; i++) {
+            el1[i].innerHTML = "P태그 영역 (" + i + ")";
+        }
+
+        /** CLass 이름으로 접근하는 경우 */
+        const el2 = document.getElementsByClassName("mycls");
+
+        // 특정 클래스 여러개 존재하는 것이 대부분이므로 항상 배열 형대(컬렉션)로 반환된다.
+        // -> 반복문 처리가 필요함.
+        for(let i=0; i<el1.length; i++) {
+            el2[i].innerHTML = ".mycls 영역 (" + i + ")";
+        }
+
+        const el3 = document.getElementsById("myid");
+        el3.innerHTML = "#myid영역"
+
+
+        const el4 = document.querySelector(".a>.b>#c");
+        el4.innerHTML = ".a>.b>#c 영역"
+
+
+        const el5 = document.querySelectorAll(".myh3");
+        el5.innerHTML = ".myh3 영역 ("+ i +")";
+    
+
+    </script>
+</body>
+</html>
