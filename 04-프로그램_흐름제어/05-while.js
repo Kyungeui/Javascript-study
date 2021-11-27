@@ -6,3 +6,6 @@ while ( x <= 10) {
     x++;
 }
 console.log("x의 최종값:" + x)
+
+
+
