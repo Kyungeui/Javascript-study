@@ -43,12 +43,14 @@
         });
 
         document.querySelector("#link3").addEventListener("click", e => {
+            e.preventDefault();
             // #link4가 눌러졌을때 호출되는 팝업창과 창 이름이 동일하므로,
             // 같은 창을 공유한다.
             window.open("http://www.naver.com", 'mywin','width=300, height=500, scrollbars-no, toolbar=no, menubar=no, status=no, location=no')
         });
 
         document.querySelector("#link4").addEventListener("click", e => {
+            e.preventDefault();
             window.open("http://www.daum.net", 'mywin','width=300, height=500, scrollbars-no, toolbar=no, menubar=no, status=no, location=no')
         });
     </script>
