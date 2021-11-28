@@ -43,19 +43,21 @@
         for(let i=0; i<el1.length; i++) {
             el2[i].innerHTML = ".mycls 영역 (" + i + ")";
         }
-
+        /** ID값으로 객체  가져오기 */
+        // ID값은 항상 단 하나만 존재하므로 리턴은 단일 객체
+        // --> 반복문이 불필요.
         const el3 = document.getElementsById("myid");
-        el3.innerHTML = "#myid영역"
+        el3.innerHTML = "#myid영역";
 
-
+        /** CSS 선택자로 가져오기 **/
         const el4 = document.querySelector(".a>.b>#c");
-        el4.innerHTML = ".a>.b>#c 영역"
+        el4.innerHTML = ".a>.b>#c 영역";
 
-
+        /** CSS 선택자로 복수 객체 가져오기 **/
         const el5 = document.querySelectorAll(".myh3");
         el5.innerHTML = ".myh3 영역 ("+ i +")";
     
-
+        
     </script>
 </body>
 </html>

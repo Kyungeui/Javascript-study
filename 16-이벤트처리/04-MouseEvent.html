@@ -24,13 +24,16 @@
     </div>
     
     <script>
-        const eventbox = document.querySelector("#Listener");
+        // 이벤트가 발생한 대상을 JS 객체로 가져온다
+        const eventBox = document.querySelector("#Listener");
 
-        eventbox.addEventListener("mousedown", e => e.currentTarget.innerHTML = "Mouse Down");
-        eventbox.addEventListener("mouseup", e => e.currentTarget.innerHTML = "Mouse Up");
+        // e.currentTarget 은 이벤트가 발생한 HTML요소 자신
+        // 여기서는 eventBox 자신을 의미함 
+        eventBox.addEventListener("mousedown", e => e.currentTarget.innerHTML = "Mouse Down");
+        eventBox.addEventListener("mouseup", e => e.currentTarget.innerHTML = "Mouse Up");
 
-        eventbox.addEventListener("mouseout", e => e.currentTarget.innerHTML = "Mouse Out");
-        eventbox.addEventListener("mouseover", e => e.currentTarget.innerHTML = "Mouse Over");
+        eventBox.addEventListener("mouseout", e => e.currentTarget.innerHTML = "Mouse Out");
+        eventBox.addEventListener("mouseover", e => e.currentTarget.innerHTML = "Mouse Over");
 
     </script>
 </body>
