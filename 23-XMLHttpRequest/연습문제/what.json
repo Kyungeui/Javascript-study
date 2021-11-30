@@ -1,0 +1,15 @@
+{
+        "region": "서울",
+        "confirmed": 154286,
+        "death": 1100,
+        "released": 130568,
+        "vaccinatedOnce": 119118,
+        "vaccinatedFully": 1283,
+        "active": 22618,
+        "confirmed_prev": 153100,
+        "released_prev": 129304,
+        "death_prev": 1084,
+        "active_prev": 22712,
+        "vaccinatedOnce_prev": 119118,
+        "vaccinatedFully_prev": 1283
+}
