@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>📚 Books</title>
+    <style>
+    #list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    #list li {
+        border-bottom: 1px dotted #d5d5d5;
+    }
+    #list li:first-child {
+        border-top: 1px dotted #d5d5d5;
+    }
+
+    #list a {
+        display: block;
+        width: auto;
+        height: 160px;
+        padding: 10px 10px 10px 150px;
+        position: relative;
+        color: black;
+        text-decoration: none;
+    }
+    #list a span:first-child {
+        display: block;
+        width: 120px;
+        height: 160px;
+        background-repeat: no-repeat;
+    }
+    </style>
+</head>
+<body>
+    <h1>📚 카카오 책 검색</h1>
+
+    <form id="searchForm">
+        <fieldset>
+            <input type="search" id="query" placeholder="Serach ...">
+            <button type="submit">검색</button>
+
+            <a href="#" id="sort-button-asc">낮은 가격순 정렬</a>
+            <a href="#" id="sort-button-desc">높은 가격순 정렬</a>
+        </fieldset>
+    </form>
+
+    <ul id="list"></ul>
+
+    <script>
+        // 데이터를 저장하기 위한 전역변수
+        let data = null;
+        let query = null;
+
+        // 검색 버튼에 대한 이벤트
+        document.querySelector('#searchForm').addEventListener('submit', e => {
+            e.preventDefault();
+
+            const queryField = document.querySelector("#query");
+            query = queryField.value.trim();
+
+            if (!query) {
+                alert("검색어를 입력하세요.");
+                queryField.focus();
+                return
+            }
+
+            getData();
+        });
+
+        //낮은 가격순 정렬
+        document.querySelector('#sort-button-asc').addEventListener('click', e => sort("asc"));
+
+        // 높은 가격순 정렬 
+        document.querySelector('#sort-button-desc').addEventListener('click', e => sort("desc"));
+
+
+        // Ajax를 통해 데이터 가져오기
+        function getData() {
+            /* -------- Ajax 처리 로직 시작 -------- */
+            const xhr = new XMLHttpRequest();
+            const method = 'GET'
+
+            // 링크에 숨겨진 data-deptno값을 백엔드에 전송함
+            const url = 'https://dapi.kakao.com/v3/search/book?query=' + query + '&page=1&size=50';
+
+            xhr.onreadystatechange = (e) => {
+                const { target } = e;
+
+                if (target.readyState == XMLHttpRequest.DONE) {
+                    if (target.status == 200) {
+                        const req = JSON.parse(target.response);
+                        console.log(req);
+
+                        // 가져온 데이터를 전역변수에 저장
+                        data = req.document;
+                        printData();
+                    } else {
+                        const s = parseInt(target.status / 100);
+                        let errMsg = null;
+
+                        if (s ==4) {
+                            errMsg = '[' + target.status + ']' + target.statusText + '- 요청 주소가 잘못되었습니다.';
+                        } else if (s == 5) {
+                            errMsg = '[' + target.status + ']' + target.statusText + '- 서버의 응답이 없습니다.';
+                        } else {
+                            errMsg = '[' + target.status + ']' + target.statusText + '- 요청에 실패했습니다.';
+                        }
+
+                        alert(errMsg);
+                    }
+                }
+            };
+            xhr.open(method, url);
+            xhr.setRequestHeader('Authorization', 'KakaoAK 4c076871e63fbdebdc6367a4a3273e31');
+            xhr.send();
+            /* -------- Ajax 처리 로직 시작 -------- */
+        }
+        
+        /** 정렬을 수행하는 메서드 **/
+        function sort(direction) {
+            // data에 대한 정렬 구현
+            for (let i = 0; i < data.length - 1; i++) {
+                for (let j = i+1; j < data.length; j++) {
+                    if (direction == 'asc') {
+                        if(data[i].price > data[j].price) {
+                            const tmp = data[i];
+                            data[i] = data[j];
+                            data[j] = tmp;
+                        }
+                    } else {
+                        if (data[i].price < data[j].price) {
+                            const tmp = data[i];
+                            data[i] = data[j];
+                            data[j] = tmp;
+                        }
+                    }
+                }
+            }
+            printData();
+        }
+
+        /** 화면에 data의 내용을 출력하는 메서드 **/
+        function printData() {
+            const list = document.querySelector('#list');
+
+            Array.from(list.getElementsByTagName('li')).map((v, i) => {
+                list.removeChild(v);
+            });
+
+            data.map((v, i) => {
+                console.log(v);
+                
+                const li = document.createElement('li');
+
+                const a = document.createElement('a');
+                a.setAttribute('href', v.url);
+
+                const span0 = document.createElement('span');
+                span0.style.backgroundImage = "url('" + v.thumbnail + "')";
+
+                const h2 = document.createElement('h2');
+                h2.innerHTML = v.title;
+
+                const p = document.createElement('p');
+                p.innerHTML = v.contents;
+
+                const span1 = document.createElement('span');
+                span1.innerHTML = v.authors.join(', ');
+                span1.classList.add('info');
+
+                const span2 = document.createElement('span');
+                span2.innerHTML = v.publisher;
+                span2.classList.add('info');
+
+                const span3 = document.createElement('span');
+                span3.innerHTML = v.price;
+                span3.classList.add('price');
+
+                const span4 = document.createElement('span');
+                span4.innerHTML = v.sale_price;
+                span4.classList.add('price');
+
+                li.appendChild(a);
+                a.appendChild(span0);
+                a.appendChild(h2);
+                a.appendChild(p);
+                a.appendChild(span1);
+                a.appendChild(span2);
+                a.appendChild(span3);
+                a.appendChild(span4);
+                
+                list.appendChild(li);
+            });
+        }
+    </script>
+</body>
+</html>
