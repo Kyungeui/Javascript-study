@@ -30,7 +30,7 @@
         const getMovieRank =(targetDt) => {
             const xhr = new XMLHttpRequest();
             const method = 'GET';
-            const url = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=e531b1d9859250d59a9a22bb70739466&targetDt=20211130';
+            const url = 'http://www.kobis.or.kr/kobisopenapi/webservice/rest/boxoffice/searchDailyBoxOfficeList.json?key=e531b1d9859250d59a9a22bb70739466&targetDt=' + targetDt;
 
             xhr.onreadystatechange = (e) => {
                 const { target } = e;
@@ -93,8 +93,23 @@
             console.log(date);
             getMovieRank(date);
         });
-        vpdlwl
         
+        /** 페이지 열림과 동시에 실행됨 **/
+        const date = new Date();
+        // 하루전을 계산
+        const b = date.getDate() - 1;
+        date.setDate(b);
+
+        const yy = date.getFullYear();
+        const mm = date.getMonth()+1;
+        const dd = date.getDate();
+
+        if (mm<10) {mm = "0" + mm;}
+        if (dd<10) {dd = "0" + dd;}
+
+        const sendData = "" + yy + mm + dd;
+        getMovieRank(sendDate);
+
     </script>
 </body>
 </html>

@@ -32,6 +32,37 @@
         width: 120px;
         height: 160px;
         background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center center;
+        position: absolute;
+        left: 10px;
+        top: 10px;
+    }
+    #list a h2 {
+        font-size: 18px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 1;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+    }
+    #list a span, #list a p {
+        font-size: 14px;
+    }
+
+    #list a p {
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        word-wrap: break-word;
+    }
+    #list span.info::after, #list span.price::after {
+        content: '|';
+        margin-left: 7px;
+        margin-right: 7px;
     }
     </style>
 </head>
@@ -123,8 +154,8 @@
         /** 정렬을 수행하는 메서드 **/
         function sort(direction) {
             // data에 대한 정렬 구현
-            for (let i = 0; i < data.length - 1; i++) {
-                for (let j = i+1; j < data.length; j++) {
+            for (let i=0; i<data.length-1; i++) {
+                for (let j= i+1; j<data.length; j++) {
                     if (direction == 'asc') {
                         if(data[i].price > data[j].price) {
                             const tmp = data[i];
