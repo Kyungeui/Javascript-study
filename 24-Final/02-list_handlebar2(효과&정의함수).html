@@ -46,13 +46,13 @@
                 <dt>학과위치</dt>
                 <dd>{{loc}}</dd>
                 <dt>졸업논문</dt>
-                <dd>{isThesis thesis}</dd>
+                <dd>{{{isThesis thesis}}}</dd>
             </dl>
         {{/each}}
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
-    <script src="./handlebars.helper.png"></script>
+    <script src="./handlebars.helper.js"></script>
     <script>
         const json = {
             item : [
@@ -60,29 +60,29 @@
                     deptno : 101,
                     dname : "<strong>컴퓨터공학과</strong>",
                     loc : "<li>1호관</li>",
-                    thesis : 0
+                    thesis : 0,
                 },
                 {
                     deptno : 102,
                     dname : "<strong>멀티미디어학과</strong>",
                     loc : "<li>2호관</li>",
-                    thesis : 0
+                    thesis : 0,
                 },
                 {
                     deptno : 201,
                     dname : "<strong>전자공학과</strong>",
                     loc : "<li>3호관</li>",
-                    thesis : 1
+                    thesis : 1,
                 },
                 {
                     deptno : 301,
                     dname : "<strong>기계공학과</strong>",
                     loc : "<li>4호관</li>",
-                    thesis : 1
-                }
-            ]
+                    thesis : 1,
+                },
+            ],
         };
-
+ 
         // 내용을 출력할 HTML 템플릿 가져오기
         const html = document.querySelector("#tmpl").innerHTML;
         // HTML태그를 분석해서 실핼 함수를 리턴함
