@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <form id="search">
+        <input type="search" id="query">
+        <button type="submit">검색</button>
+    </form>
+
+    <script src="ajaxHelper.js"></script>
+    <script>
+        const API_KEY = "e531b1d9859250d59a9a22bb70739466";
+
+        document.querySelector("#search").addEventListener("submit", e => {
+            e.preventDefault();
+
+            //검색어
+            const query = document.querySelector("#query").value;
+
+            ajaxHelper ({
+                url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleList.json?key=" + API_KEY + "&peopleNm&date=" + new Date() + "&curPage1=",
+                success: json => {
+                    // 조회된 영화인 목록
+                    const peopleList = json.peopleListResult.peopleList;
+
+                    peopleList.map((v, i) => {
+                        // console.log(v);
+                        const peopleCd = v.peopleCd;
+                        // console.log(peopleCD);
+
+                        ajaxHelper ({
+                            url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleInfo.json?peopleCd=" + peopleCd + "&key=" + API_KEY,
+                            success: json => {
+                                console.log(json);
+                            }
+                        })
+                    });
+                    // jaxHelper ({
+                    //     success: json => {
+                    //         ajaxHelper({
+                    //             url: ...,
+                    //             success: json => {
+
+                    //             }
+                    //         })
+                    //     }
+                    // });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
