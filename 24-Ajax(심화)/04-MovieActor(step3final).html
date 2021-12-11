@@ -7,6 +7,8 @@
     <title>Document</title>
 </head>
 <body>
+    <h1>영화인 검색</h1>
+    <hr>
     <form id="search">
         <input type="search" id="query">
         <button type="submit">검색</button>
@@ -30,9 +32,10 @@
             <td>{{peopleInfoResult.peopleInfo.peopleNm}}</td>
             <td>{{peopleInfoResult.peopleInfo.sex}}</td>
             <td>{{peopleInfoResult.peopleInfo.repRoleNm}}</td>
-            <td><ul id="fillmo-{{peopleInfoResult.peopleInfo.peopleCd"></ul></td>
+            <td><ul id="fillmo-{{peopleInfoResult.peopleInfo.peopleCd}}"></ul></td>
         </tr>
     </script>
+
     <script id="tmpl-fillmos" type="text/x-handlebars-template">
         <li>
             {{movieInfoResult.movieInfo.movieNm}} ({{movieInfoResult.movieInfo.prdtYear}})
@@ -73,7 +76,7 @@
                         /** 각 영화인의 상세정보 검색 **/
                         ajaxHelper ({
                             url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/people/searchPeopleInfo.json?peopleCd=" + peopleCd + "&key=" + API_KEY,
-                            success: json => {
+                            success: (json) => {
                                 const html = document.querySelector("#tmpl").innerHTML;
                                 const template = Handlebars.compile(html);
                                 const result = template(json);
@@ -89,11 +92,11 @@
                                     /** 각 영화인이 참여한 영화정도 검색 */
                                     ajaxHelper ({
                                         url: "http://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json?key=" + API_KEY + "&movieCd=" + v.movieCd,
-                                        success: json => {
+                                        success: (json) => {
                                             const html = document.querySelector("#tmpl-fillmos").innerHTML;
                                             const template = Handlebars.compile(html);
                                             const result = template(json);
-                                            document.insertAdjacentHTML("beforeend", result);
+                                            currentFillo.insertAdjacentHTML("beforeend", result);
                                         },
                                     });
                                 });

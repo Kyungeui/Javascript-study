@@ -42,36 +42,43 @@
                 <dt>학과번호</dt>
                 <dd>{{deptno}}</dd>
                 <dt>학과명</dt>
-                <dd>{{dname}}</dd>
+                <dd>{{{dname}}}</dd>
                 <dt>학과위치</dt>
                 <dd>{{loc}}</dd>
+                <dt>졸업논문</dt>
+                <dd>{{{isThesis thesis}}}</dd>
             </dl>
         {{/each}}
     </script>
     
     <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="./handlebars.helper.js"></script>
     <script>
         const json = {
             item : [
                 {
                     deptno : 101,
-                    dname : "컴퓨터공학과",
-                    loc : "1호관"
+                    dname : "<strong>컴퓨터공학과</strong>",
+                    loc : "<i>1호관</i>",
+                    thesis: 0,
                 },
                 {
                     deptno : 102,
-                    dname : "멀티미디어학과",
-                    loc : "2호관"
+                    dname : "<strong>멀티미디어학과</strong>",
+                    loc : "<i>2호관</i>",
+                    thesis: 0,
                 },
                 {
                     deptno : 201,
-                    dname : "전자공학과",
-                    loc : "3호관"
+                    dname : "<strong>전자공학과</strong>",
+                    loc : "<i>3호관</i>",
+                    thesis: 1,
                 },
                 {
                     deptno : 301,
-                    dname : "기계공학과",
-                    loc : "4호관"
+                    dname : "<strong>기계공학과</strong>",
+                    loc : "<i>4호관</i>",
+                    thesis: 1,
                 }
             ]
         };
@@ -82,7 +89,13 @@
         const template = Handlebars.compile(html);
         // 실행함수에 데이터를 전달해서 결과물 조립
         const result = template(json);
-        console.log(result);
+        
+        /** 
+         * appendChild는 화면에 출력하고자 하는 대상이 객체인 경우
+         * - document.creatrElement 혹은 document.querySelector 등으로 생성한 객체
+         insertAdjacentHTML, innHTML 은 화면에 출력하고자 하는 대상이 HTML코드를 표현하는 문자열인 경우
+         */
+
 
         // 조립결과를 원하는 곳에 출력
         document.querySelector("#result").insertAdjacentHTML("beforeend", result);

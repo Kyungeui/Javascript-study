@@ -39,7 +39,7 @@ function ajaxHelper(params) {
                     alert('[' + ajax.status + ']' + ajax.status + ' - 요청에 실패했습니다.');
                 }
             }
-        }
+        } // end if
     };
     
     xhr.send();
@@ -53,7 +53,8 @@ function ajaxHandlebar(params) {
      *      headers: {
      *          key: value, key: value,
      *      },
-     *      success: function(json) { ... }
+     *      tmpl: '#tmpl',
+     *      view: '#result'
      * }
      */
 

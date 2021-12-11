@@ -11,14 +11,30 @@
     <table border="1">
         <thead>
             <tr>
-                <th></th>
-                <th></th>
+                <th>속담</th>
+                <th>뜻</th>
             </tr>
         </thead>
+        <tbody id="proverb-list"></tbody>
     </table>
 
     <script id="tmpl" type="text/x-handlebars-template">
-        
+        {{#each speak.data}}
+        <tr>
+            <td>{{eng}}</td>
+            <td>{{kor}}</td>
+        </tr>
+        {{/each}}
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/handlebars@latest/dist/handlebars.js"></script>
+    <script src="./ajaxHelper.js"></script>
+    <script>
+        ajaxHandlerbar({
+            url: 'backend/data.json',
+            tmpl: '#tmpl',
+            view: '#proverb-list'
+        });
     </script>
 </body>
 </html>
