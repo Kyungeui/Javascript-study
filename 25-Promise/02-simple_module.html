@@ -22,7 +22,7 @@
         document.querySelector("#btn").addEventListener("click", e => {
             e.preventDefault();
 
-            ajaxPromiseHepler("../23-XMLHttpRequest/backend/hello.json").then(json => {
+            ajaxPromiseHepler("./backend/hello.json").then(json => {
                 console.log(json);
                 document.getElementById("console").innerHTML = json.msg;
             }).catch(e => {
